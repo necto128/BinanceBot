@@ -1,0 +1,11 @@
+API_KEY="___"
+secret_key="___"
+base_url=https://testnet.binance.vision
+url_ws=wss://stream.testnet.binance.vision/ws
+
+sales_ratio=0.0025 # процент повышения понижения
+RECV_WINDOW=5000 # время отклика
+duration=60 # время на ожидания покупки продажи
+waiting_next_purchase=30 # время  ожидания между операциями
+quantity_currency=0.1  # колличество  валюты для покупки
+order_type=MARKET  # тип ордера
