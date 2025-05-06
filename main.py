@@ -1,3 +1,4 @@
+# Python 3.13.1
 import asyncio
 import datetime
 import hashlib
@@ -50,14 +51,14 @@ class Handler:
         start_timestamp = datetime.datetime.now()
         end_timestamp = start_timestamp + datetime.timedelta(seconds=self.config.duration)
         if purchase_price := await self.api_binance.create_order(currency=currency, side=SideStatuses.BUY.value):
-            down_price = purchase_price - (purchase_price * self.config.sales_ratio)
-            up_price = purchase_price + (purchase_price * self.config.sales_ratio)
+            down_price = purchase_price - (purchase_price * Decimal(self.config.sales_ratio))
+            up_price = purchase_price + (purchase_price * Decimal(self.config.sales_ratio))
             while True:
                 if ((self.config.price_currency["price"] <= down_price or self.config.price_currency["price"] >= up_price)
                         or (datetime.datetime.now() >= end_timestamp)):
                     await self.api_binance.create_order(currency=currency, side=SideStatuses.SELL.value)
                     break
-                await asyncio.sleep(5)
+                await asyncio.sleep(0.2)
 
     async def main(self, currency: CustomDictType) -> None:
         """
